@@ -55,7 +55,7 @@ const loginPostController = (req, res, next) => {
         return;
     }
 
-User.fineOne ({ email })
+User.findOne ({ email })
 .then(foundUser => {
     if(!foundUser){
         res.render('login.hbs', { errorMessage: 'Sorry user does not exist'})
@@ -70,7 +70,7 @@ User.fineOne ({ email })
     }
     req.session.user = foundUser;
 
-    res.redirect('/')
+    res.redirect('/feed')
 })
 .catch(err => {
     console.log(err);
@@ -79,10 +79,36 @@ User.fineOne ({ email })
 
 }
 
+// const profileGetController = (req, res, next) => {
+//     axios.get('https://nfl-schedule.p.rapidapi.com/v1/schedules')
+//     .then(gameSchedule => {
+//         const schedule = gameSchedule.data;
+
+//         console.log(schedule);
+//     })
+//     .catch(err => console.log(err));
+// }
+
+// const options = {
+//     method: 'GET',
+//     url: 'https://nfl-schedule.p.rapidapi.com/v1/schedules',
+//     headers: {
+//       'X-RapidAPI-Key': 'SIGN-UP-FOR-KEY',
+//       'X-RapidAPI-Host': 'nfl-schedule.p.rapidapi.com'
+//     }
+//   };
+  
+//   axios.request(options).then(function (response) {
+//       console.log(response.data);
+//   }).catch(function (error) {
+//       console.error(error);
+//   });
+
 
 module.exports = {
     signupGetController,
     signupPostController,
     loginGetController,
     loginPostController,
+    // profileGetController
 };
